@@ -115,6 +115,9 @@ export default function WorkersPage() {
         specialty: worker.specialty || "",
         agreed_payment: worker.agreed_payment,
         work_time: worker.work_time,
+        start_date: worker.start_date || "",
+        end_date: worker.end_date || "",
+        payment_days: worker.payment_days || "",
       })
     } else {
       setSelectedWorker(null)
@@ -274,6 +277,39 @@ export default function WorkersPage() {
                   </Select>
                 </Field>
               </div>
+              <Field>
+                <FieldLabel htmlFor="start_date">Hora de Inicio *</FieldLabel>
+                <Input
+                  id="start_date"
+                  type="time"
+                  value={formData.start_date || ""}
+                  onChange={(e) =>
+                    setFormData({ ...formData, start_date: e.target.value })
+                  }
+                />
+              </Field>
+              <Field>
+                <FieldLabel htmlFor="end_date">Hora de Fin *</FieldLabel>
+                <Input
+                  id="end_date"
+                  type="time"
+                  value={formData.end_date || ""}
+                  onChange={(e) =>
+                    setFormData({ ...formData, end_date: e.target.value })
+                  }
+                />
+              </Field>
+              <Field>
+                <FieldLabel htmlFor="payment_days">Días de Pago</FieldLabel>
+                <Input
+                  id="payment_days"
+                  value={formData.payment_days || ""}
+                  onChange={(e) =>
+                    setFormData({ ...formData, payment_days: e.target.value })
+                  }
+                  placeholder="Ej: Lunes, Miércoles, Viernes"
+                />
+              </Field>
             </FieldGroup>
             <DialogFooter>
               <Button
