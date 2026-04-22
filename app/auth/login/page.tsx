@@ -26,19 +26,9 @@ export default function LoginPage() {
     setLoading(true)
 
     try {
-      // Admin user uses DNI 43982810 to login
-      // The admin email is admin@controleobreros.com
-      const ADMIN_DNI = "43982810"
-      const ADMIN_EMAIL = "admin@controleobreros.com"
-      
-      // Check if the user is the admin
-      if (username !== ADMIN_DNI) {
-        setError("Usuario no autorizado")
-        return
-      }
-      
+      // Login using email directly
       const { error } = await supabase.auth.signInWithPassword({
-        email: ADMIN_EMAIL,
+        email: username,
         password,
       })
 
@@ -74,13 +64,13 @@ export default function LoginPage() {
           <form onSubmit={handleLogin} className="space-y-6">
             <FieldGroup>
               <Field>
-                <FieldLabel htmlFor="username">Usuario</FieldLabel>
+                <FieldLabel htmlFor="username">Email</FieldLabel>
                 <div className="relative">
                   <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <Input
                     id="username"
-                    type="text"
-                    placeholder="Ingrese su usuario"
+                    type="email"
+                    placeholder="Ingrese su email"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     className="pl-10"
