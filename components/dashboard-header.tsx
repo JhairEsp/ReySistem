@@ -26,19 +26,19 @@ export function DashboardHeader() {
   const currentTitle = pageTitles[pathname] || "Panel Principal"
 
   return (
-    <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
-      <SidebarTrigger className="-ml-1" />
-      <Separator orientation="vertical" className="mr-2 h-4" />
+    <header className="flex h-16 shrink-0 items-center gap-2 border-b border-slate-200 bg-white shadow-sm px-4 md:px-6">
+      <SidebarTrigger className="-ml-1 hover:bg-slate-100" />
+      <Separator orientation="vertical" className="mr-2 h-4 bg-slate-200" />
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem className="hidden md:block">
-            <BreadcrumbLink href="/dashboard">
-              Control de Obreros
+            <BreadcrumbLink href="/dashboard" className="text-blue-600 hover:text-blue-700 font-semibold">
+              ReiSystem
             </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator className="hidden md:block" />
           <BreadcrumbItem>
-            <BreadcrumbPage>{currentTitle}</BreadcrumbPage>
+            <BreadcrumbPage className="font-semibold text-slate-900">{currentTitle}</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
