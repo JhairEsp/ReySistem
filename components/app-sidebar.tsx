@@ -64,14 +64,14 @@ export function AppSidebar() {
 
   return (
     <Sidebar>
-      <SidebarHeader className="border-b border-sidebar-border">
-        <div className="flex items-center gap-3 px-2 py-2">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary">
-            <Building2 className="h-5 w-5 text-primary-foreground" />
+      <SidebarHeader className="border-b border-sidebar-border bg-gradient-to-r from-blue-600 to-blue-700">
+        <div className="flex items-center gap-3 px-2 py-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white shadow-md">
+            <span className="text-xl font-bold text-blue-600">R</span>
           </div>
           <div className="flex flex-col">
-            <span className="text-sm font-semibold">Control de Obreros</span>
-            <span className="text-xs text-muted-foreground">Sistema de Gestión</span>
+            <span className="text-sm font-bold text-white">ReiSystem</span>
+            <span className="text-xs text-blue-100">Gestión de Personal</span>
           </div>
         </div>
       </SidebarHeader>

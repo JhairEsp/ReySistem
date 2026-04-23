@@ -158,22 +158,25 @@ export default function WorkersPage() {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">Obreros</h1>
-          <p className="text-muted-foreground">
-            Gestiona la información de tus obreros
-          </p>
-        </div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-4 md:p-6 lg:p-8">
+      <div className="space-y-6">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+              Gestión de Personal
+            </h1>
+            <p className="text-lg text-slate-600 mt-2">
+              Administra la información de tus obreros y sus períodos de trabajo
+            </p>
+          </div>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
-            <Button onClick={() => handleOpenDialog()}>
+            <Button onClick={() => handleOpenDialog()} className="bg-blue-600 hover:bg-blue-700 text-white font-semibold">
               <Plus className="mr-2 h-4 w-4" />
-              Agregar Obrero
+              Agregar Personal
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-md">
+          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle>
                 {selectedWorker ? "Editar Obrero" : "Nuevo Obrero"}
@@ -277,28 +280,30 @@ export default function WorkersPage() {
                   </Select>
                 </Field>
               </div>
-              <Field>
-                <FieldLabel htmlFor="start_date">Hora de Inicio *</FieldLabel>
-                <Input
-                  id="start_date"
-                  type="time"
-                  value={formData.start_date || ""}
-                  onChange={(e) =>
-                    setFormData({ ...formData, start_date: e.target.value })
-                  }
-                />
-              </Field>
-              <Field>
-                <FieldLabel htmlFor="end_date">Hora de Fin *</FieldLabel>
-                <Input
-                  id="end_date"
-                  type="time"
-                  value={formData.end_date || ""}
-                  onChange={(e) =>
-                    setFormData({ ...formData, end_date: e.target.value })
-                  }
-                />
-              </Field>
+              <div className="grid grid-cols-2 gap-4">
+                <Field>
+                  <FieldLabel htmlFor="start_date">Fecha de Inicio *</FieldLabel>
+                  <Input
+                    id="start_date"
+                    type="date"
+                    value={formData.start_date || ""}
+                    onChange={(e) =>
+                      setFormData({ ...formData, start_date: e.target.value })
+                    }
+                  />
+                </Field>
+                <Field>
+                  <FieldLabel htmlFor="end_date">Fecha de Fin *</FieldLabel>
+                  <Input
+                    id="end_date"
+                    type="date"
+                    value={formData.end_date || ""}
+                    onChange={(e) =>
+                      setFormData({ ...formData, end_date: e.target.value })
+                    }
+                  />
+                </Field>
+              </div>
               <Field>
                 <FieldLabel htmlFor="payment_days">Días de Pago</FieldLabel>
                 <Input
@@ -334,12 +339,12 @@ export default function WorkersPage() {
         </Dialog>
       </div>
 
-      <Card>
-        <CardHeader>
+      <Card className="border-0 shadow-md">
+        <CardHeader className="bg-gradient-to-r from-slate-50 to-slate-100 border-b">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <CardTitle>Lista de Obreros</CardTitle>
-              <CardDescription>
+              <CardTitle className="text-2xl">Lista de Personal</CardTitle>
+              <CardDescription className="text-base mt-1">
                 {workers.length} obrero{workers.length !== 1 ? "s" : ""} registrado
                 {workers.length !== 1 ? "s" : ""}
               </CardDescription>
@@ -350,7 +355,7 @@ export default function WorkersPage() {
                 placeholder="Buscar por nombre o DNI..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-9"
+                className="pl-9 border-slate-300"
               />
             </div>
           </div>
@@ -371,56 +376,111 @@ export default function WorkersPage() {
               }
             />
           ) : (
-            <div className="overflow-x-auto">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Nombre</TableHead>
-                    <TableHead>DNI</TableHead>
-                    <TableHead>Teléfono</TableHead>
-                    <TableHead>Especialidad</TableHead>
-                    <TableHead className="text-right">Pago Acordado</TableHead>
-                    <TableHead>Tipo</TableHead>
-                    <TableHead className="text-right">Acciones</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {filteredWorkers.map((worker) => (
-                    <TableRow key={worker.id}>
-                      <TableCell className="font-medium">
-                        {worker.full_name}
-                      </TableCell>
-                      <TableCell>{worker.dni}</TableCell>
-                      <TableCell>{worker.phone || "-"}</TableCell>
-                      <TableCell>{worker.specialty || "-"}</TableCell>
-                      <TableCell className="text-right">
-                        S/ {Number(worker.agreed_payment).toFixed(2)}
-                      </TableCell>
-                      <TableCell className="capitalize">
-                        {worker.work_time.replace("_", " ")}
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <div className="flex justify-end gap-2">
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={() => handleOpenDialog(worker)}
-                          >
-                            <Pencil className="h-4 w-4" />
-                          </Button>
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={() => openDeleteDialog(worker)}
-                          >
-                            <Trash2 className="h-4 w-4 text-destructive" />
-                          </Button>
-                        </div>
-                      </TableCell>
+            <div className="space-y-4">
+              <div className="hidden md:block overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow className="bg-slate-100 hover:bg-slate-100">
+                      <TableHead className="font-semibold">Nombre</TableHead>
+                      <TableHead className="font-semibold">DNI</TableHead>
+                      <TableHead className="font-semibold hidden lg:table-cell">Teléfono</TableHead>
+                      <TableHead className="font-semibold hidden lg:table-cell">Especialidad</TableHead>
+                      <TableHead className="font-semibold text-right">Pago</TableHead>
+                      <TableHead className="font-semibold hidden sm:table-cell">Tipo</TableHead>
+                      <TableHead className="font-semibold text-right">Acciones</TableHead>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                  </TableHeader>
+                  <TableBody>
+                    {filteredWorkers.map((worker) => (
+                      <TableRow key={worker.id} className="hover:bg-slate-50 border-b">
+                        <TableCell className="font-semibold text-slate-900">
+                          {worker.full_name}
+                        </TableCell>
+                        <TableCell className="text-slate-600">{worker.dni}</TableCell>
+                        <TableCell className="text-slate-600 hidden lg:table-cell">{worker.phone || "-"}</TableCell>
+                        <TableCell className="text-slate-600 hidden lg:table-cell">{worker.specialty || "-"}</TableCell>
+                        <TableCell className="text-right font-semibold text-blue-600">
+                          S/ {Number(worker.agreed_payment).toFixed(2)}
+                        </TableCell>
+                        <TableCell className="capitalize text-slate-600 hidden sm:table-cell">
+                          {worker.work_time.replace("_", " ")}
+                        </TableCell>
+                        <TableCell className="text-right">
+                          <div className="flex justify-end gap-2">
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              onClick={() => handleOpenDialog(worker)}
+                              className="hover:bg-blue-100 hover:text-blue-600"
+                            >
+                              <Pencil className="h-4 w-4" />
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              onClick={() => openDeleteDialog(worker)}
+                              className="hover:bg-red-100"
+                            >
+                              <Trash2 className="h-4 w-4 text-destructive" />
+                            </Button>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+              
+              <div className="md:hidden space-y-3">
+                {filteredWorkers.map((worker) => (
+                  <div key={worker.id} className="bg-white rounded-lg border p-4 shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="flex-1 space-y-2">
+                        <h3 className="font-semibold text-slate-900 text-lg">{worker.full_name}</h3>
+                        <div className="grid grid-cols-2 gap-2 text-sm">
+                          <div>
+                            <p className="text-slate-500">DNI</p>
+                            <p className="font-medium text-slate-700">{worker.dni}</p>
+                          </div>
+                          <div>
+                            <p className="text-slate-500">Teléfono</p>
+                            <p className="font-medium text-slate-700">{worker.phone || "-"}</p>
+                          </div>
+                          <div>
+                            <p className="text-slate-500">Especialidad</p>
+                            <p className="font-medium text-slate-700">{worker.specialty || "-"}</p>
+                          </div>
+                          <div>
+                            <p className="text-slate-500">Tipo de Pago</p>
+                            <p className="font-medium text-slate-700 capitalize">{worker.work_time.replace("_", " ")}</p>
+                          </div>
+                        </div>
+                        <div className="pt-2 border-t">
+                          <p className="text-blue-600 font-semibold text-lg">S/ {Number(worker.agreed_payment).toFixed(2)}</p>
+                        </div>
+                      </div>
+                      <div className="flex flex-col gap-2">
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => handleOpenDialog(worker)}
+                          className="hover:bg-blue-100 hover:text-blue-600"
+                        >
+                          <Pencil className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => openDeleteDialog(worker)}
+                          className="hover:bg-red-100"
+                        >
+                          <Trash2 className="h-4 w-4 text-destructive" />
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
         </CardContent>

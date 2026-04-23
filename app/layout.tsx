@@ -7,8 +7,8 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Control de Obreros - Sistema de Gestión',
-  description: 'Sistema de gestión empresarial para control de obreros, pagos, ingresos y asistencias',
+  title: 'ReiSystem - Gestión de Personal y Asistencias',
+  description: 'ReiSystem: Sistema moderno de gestión de personal, control de asistencias, pagos e ingresos para empresas',
   generator: 'v0.app',
   icons: {
     icon: [

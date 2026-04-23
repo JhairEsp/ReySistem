@@ -64,29 +64,33 @@ export default function DashboardPage() {
   ]
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Panel Principal</h1>
-        <p className="text-muted-foreground">
-          Resumen general del sistema de control de obreros
-        </p>
-      </div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-4 md:p-6 lg:p-8">
+      <div className="space-y-8">
+        <div className="space-y-2">
+          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+            ReiSystem
+          </h1>
+          <p className="text-lg text-slate-600">
+            Resumen general del sistema de gestión de personal
+          </p>
+        </div>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {cards.map((card) => (
-          <Card key={card.title}>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">{card.title}</CardTitle>
-              <div className={`rounded-lg p-2 ${card.bgColor}`}>
-                <card.icon className={`h-4 w-4 ${card.color}`} />
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{card.value}</div>
-              <CardDescription>{card.description}</CardDescription>
-            </CardContent>
-          </Card>
-        ))}
+        <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          {cards.map((card) => (
+            <Card key={card.title} className="border-0 shadow-md hover:shadow-lg transition-all duration-300">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+                <CardTitle className="text-sm font-semibold text-slate-700">{card.title}</CardTitle>
+                <div className={`rounded-xl p-3 ${card.bgColor}`}>
+                  <card.icon className={`h-5 w-5 ${card.color}`} />
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                <div className="text-3xl font-bold text-slate-900">{card.value}</div>
+                <CardDescription className="text-slate-600">{card.description}</CardDescription>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       </div>
     </div>
   )
