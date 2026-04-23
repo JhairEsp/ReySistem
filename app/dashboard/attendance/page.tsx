@@ -424,6 +424,7 @@ export default function AttendancePage() {
           )}
         </CardContent>
       </Card>
+      </div>
 
       <Dialog
         open={notesDialog.open}
@@ -461,6 +462,7 @@ export default function AttendancePage() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+      </div>
     </div>
   )
 }
