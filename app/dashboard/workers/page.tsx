@@ -127,22 +127,35 @@ export default function WorkersPage() {
   }
 
   const handleSave = async () => {
-    setSaving(true)
-    try {
-      if (selectedWorker) {
-        await supabase
-          .from("workers")
-          .update(formData)
-          .eq("id", selectedWorker.id)
-      } else {
-        await supabase.from("workers").insert(formData)
-      }
-      setDialogOpen(false)
-      fetchWorkers()
-    } finally {
-      setSaving(false)
+  setSaving(true)
+  try {
+    const payload = {
+      full_name: formData.full_name,
+      dni: formData.dni,
+      phone: formData.phone || null,
+      bank_account: formData.bank_account || null,
+      specialty: formData.specialty || null,
+      agreed_payment: formData.agreed_payment,
+      work_time: formData.work_time,
+      work_start_date: formData.start_date || null,
+      work_end_date: formData.end_date || null,
     }
+
+    if (selectedWorker) {
+      await supabase
+        .from("workers")
+        .update(payload)
+        .eq("id", selectedWorker.id)
+    } else {
+      await supabase.from("workers").insert(payload)
+    }
+
+    setDialogOpen(false)
+    fetchWorkers()
+  } finally {
+    setSaving(false)
   }
+}
 
   const handleDelete = async () => {
     if (!selectedWorker) return
