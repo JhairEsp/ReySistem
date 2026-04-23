@@ -53,8 +53,8 @@ type Worker = {
   specialty: string | null
   agreed_payment: number
   work_time: string
-  start_date: string | null
-  end_date: string | null
+  work_start_date: string | null
+  work_end_date: string | null
   payment_days: string | null
   created_at: string
 }
