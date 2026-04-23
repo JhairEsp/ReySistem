@@ -392,55 +392,85 @@ export default function WorkersPage() {
             <div className="space-y-4">
               <div className="hidden md:block overflow-x-auto">
                 <Table>
-                  <TableHeader>
-                    <TableRow className="bg-slate-100 hover:bg-slate-100">
-                      <TableHead className="font-semibold">Nombre</TableHead>
-                      <TableHead className="font-semibold">DNI</TableHead>
-                      <TableHead className="font-semibold hidden lg:table-cell">Teléfono</TableHead>
-                      <TableHead className="font-semibold hidden lg:table-cell">Especialidad</TableHead>
-                      <TableHead className="font-semibold text-right">Pago</TableHead>
-                      <TableHead className="font-semibold hidden sm:table-cell">Tipo</TableHead>
-                      <TableHead className="font-semibold text-right">Acciones</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {filteredWorkers.map((worker) => (
-                      <TableRow key={worker.id} className="hover:bg-slate-50 border-b">
-                        <TableCell className="font-semibold text-slate-900">
-                          {worker.full_name}
-                        </TableCell>
-                        <TableCell className="text-slate-600">{worker.dni}</TableCell>
-                        <TableCell className="text-slate-600 hidden lg:table-cell">{worker.phone || "-"}</TableCell>
-                        <TableCell className="text-slate-600 hidden lg:table-cell">{worker.specialty || "-"}</TableCell>
-                        <TableCell className="text-right font-semibold text-blue-600">
-                          S/ {Number(worker.agreed_payment).toFixed(2)}
-                        </TableCell>
-                        <TableCell className="capitalize text-slate-600 hidden sm:table-cell">
-                          {worker.work_time.replace("_", " ")}
-                        </TableCell>
-                        <TableCell className="text-right">
-                          <div className="flex justify-end gap-2">
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              onClick={() => handleOpenDialog(worker)}
-                              className="hover:bg-blue-100 hover:text-blue-600"
-                            >
-                              <Pencil className="h-4 w-4" />
-                            </Button>
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              onClick={() => openDeleteDialog(worker)}
-                              className="hover:bg-red-100"
-                            >
-                              <Trash2 className="h-4 w-4 text-destructive" />
-                            </Button>
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
+                 <TableHeader>
+  <TableRow className="bg-slate-100 hover:bg-slate-100">
+    <TableHead className="font-semibold">Nombre</TableHead>
+    <TableHead className="font-semibold">DNI</TableHead>
+    <TableHead className="font-semibold hidden lg:table-cell">Teléfono</TableHead>
+    <TableHead className="font-semibold hidden lg:table-cell">Especialidad</TableHead>
+    <TableHead className="font-semibold text-right">Pago</TableHead>
+    <TableHead className="font-semibold hidden sm:table-cell">Tipo</TableHead>
+    <TableHead className="font-semibold hidden lg:table-cell">Inicio</TableHead>
+    <TableHead className="font-semibold hidden lg:table-cell">Fin</TableHead>
+    <TableHead className="font-semibold text-right">Acciones</TableHead>
+  </TableRow>
+</TableHeader>
+
+<TableBody>
+  {filteredWorkers.map((worker) => (
+    <TableRow key={worker.id} className="hover:bg-slate-50 border-b">
+      <TableCell className="font-semibold text-slate-900">
+        {worker.full_name}
+      </TableCell>
+
+      <TableCell className="text-slate-600">
+        {worker.dni}
+      </TableCell>
+
+      <TableCell className="text-slate-600 hidden lg:table-cell">
+        {worker.phone || "-"}
+      </TableCell>
+
+      <TableCell className="text-slate-600 hidden lg:table-cell">
+        {worker.specialty || "-"}
+      </TableCell>
+
+      <TableCell className="text-right font-semibold text-blue-600">
+        S/ {Number(worker.agreed_payment).toFixed(2)}
+      </TableCell>
+
+      <TableCell className="capitalize text-slate-600 hidden sm:table-cell">
+        {worker.work_time.replace("_", " ")}
+      </TableCell>
+
+      {/* ✅ NUEVO: Fecha Inicio */}
+      <TableCell className="text-slate-600 hidden lg:table-cell">
+        {worker.work_start_date
+          ? new Date(worker.work_start_date).toLocaleDateString()
+          : "-"}
+      </TableCell>
+
+      {/* ✅ NUEVO: Fecha Fin */}
+      <TableCell className="text-slate-600 hidden lg:table-cell">
+        {worker.work_end_date
+          ? new Date(worker.work_end_date).toLocaleDateString()
+          : "-"}
+      </TableCell>
+
+      <TableCell className="text-right">
+        <div className="flex justify-end gap-2">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => handleOpenDialog(worker)}
+            className="hover:bg-blue-100 hover:text-blue-600"
+          >
+            <Pencil className="h-4 w-4" />
+          </Button>
+
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => openDeleteDialog(worker)}
+            className="hover:bg-red-100"
+          >
+            <Trash2 className="h-4 w-4 text-destructive" />
+          </Button>
+        </div>
+      </TableCell>
+    </TableRow>
+  ))}
+</TableBody>
                 </Table>
               </div>
               
