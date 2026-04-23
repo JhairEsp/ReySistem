@@ -1,7 +1,6 @@
 "use client"
 
-import { usePathname, useRouter } from "next/navigation"
-import { createClient } from "@/lib/supabase/client"
+import { usePathname } from "next/navigation"
 import {
   Sidebar,
   SidebarContent,
@@ -15,13 +14,6 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Button } from "@/components/ui/button"
-import {
   Building2,
   Users,
   Wallet,
@@ -29,7 +21,6 @@ import {
   TrendingDown,
   Calendar,
   LayoutDashboard,
-  LogOut,
   ChevronUp,
   User,
 } from "lucide-react"
@@ -70,14 +61,6 @@ const menuItems = [
 
 export function AppSidebar() {
   const pathname = usePathname()
-  const router = useRouter()
-  const supabase = createClient()
-
-  const handleLogout = async () => {
-    await supabase.auth.signOut()
-    router.push("/auth/login")
-    router.refresh()
-  }
 
   return (
     <Sidebar>
@@ -118,29 +101,16 @@ export function AppSidebar() {
       <SidebarFooter className="border-t border-sidebar-border">
         <SidebarMenu>
           <SidebarMenuItem>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <SidebarMenuButton className="w-full">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary">
-                    <User className="h-4 w-4 text-primary-foreground" />
-                  </div>
-                  <div className="flex flex-col items-start">
-                    <span className="text-sm font-medium">Admin</span>
-                    <span className="text-xs text-muted-foreground">Administrador</span>
-                  </div>
-                  <ChevronUp className="ml-auto h-4 w-4" />
-                </SidebarMenuButton>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent
-                side="top"
-                className="w-[--radix-popper-anchor-width]"
-              >
-                <DropdownMenuItem onClick={handleLogout}>
-                  <LogOut className="mr-2 h-4 w-4" />
-                  <span>Cerrar Sesión</span>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <SidebarMenuButton className="w-full">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary">
+                <User className="h-4 w-4 text-primary-foreground" />
+              </div>
+              <div className="flex flex-col items-start">
+                <span className="text-sm font-medium">Admin</span>
+                <span className="text-xs text-muted-foreground">Administrador</span>
+              </div>
+              <ChevronUp className="ml-auto h-4 w-4" />
+            </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>

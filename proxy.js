@@ -1,6 +1,3 @@
-// Middleware de autenticación desactivado
-// La aplicación accede directamente al dashboard sin validación de sesión
+// Middleware desactivado - sin validación de autenticación requerida
 
-export async function proxy(request) {
-  return request
-}
+export const proxy = undefined
