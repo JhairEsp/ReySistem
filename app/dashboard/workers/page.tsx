@@ -485,6 +485,7 @@ export default function WorkersPage() {
           )}
         </CardContent>
       </Card>
+      </div>
 
       <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
         <AlertDialogContent>
