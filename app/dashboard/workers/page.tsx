@@ -108,16 +108,16 @@ export default function WorkersPage() {
     if (worker) {
       setSelectedWorker(worker)
       setFormData({
-        full_name: worker.full_name,
-        dni: worker.dni,
-        phone: worker.phone || "",
-        bank_account: worker.bank_account || "",
-        specialty: worker.specialty || "",
-        agreed_payment: worker.agreed_payment,
-        work_time: worker.work_time,
-        start_date: worker.start_date || "",
-        end_date: worker.end_date || "",
-        payment_days: worker.payment_days || "",
+      full_name: worker.full_name,
+      dni: worker.dni,
+      phone: worker.phone || "",
+      bank_account: worker.bank_account || "",
+      specialty: worker.specialty || "",
+      agreed_payment: worker.agreed_payment,
+      work_time: worker.work_time,
+      start_date: worker.work_start_date || "",
+      end_date: worker.work_end_date || "",
+      payment_days: worker.payment_days || "",
       })
     } else {
       setSelectedWorker(null)
